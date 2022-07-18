@@ -1,16 +1,16 @@
-import * as React from 'react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './src/HomeScreen';
-import GenerateSeedScreen from './src/GenerateSeedScreen';
-import useWasmInit from './hooks/useWasmInit';
-import ChainInfoScreen from './src/ChainInfoScreen';
+import * as React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from "./src/HomeScreen";
+import useRpcConnect from "./src/hooks/useRpcConnect";
+import ChainInfoScreen from "./src/ChainInfoScreen";
+import GeneratedSeedAddress from "./src/GeneratedSeedAddress";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const isWasmInit = useWasmInit();
+  const isWasmInit = useRpcConnect();
 
   if (!isWasmInit) {
     return null;
@@ -24,8 +24,8 @@ export default function App() {
               component={HomeScreen}
             />
             <Stack.Screen
-              name="Generate Seeds"
-              component={GenerateSeedScreen}
+              name="Generated seed address"
+              component={GeneratedSeedAddress}
             />
             <Stack.Screen name="Chain Info" component={ChainInfoScreen} />
           </Stack.Navigator>

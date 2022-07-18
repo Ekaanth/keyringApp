@@ -1,32 +1,31 @@
-import React from 'react';
-import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
-import PolkaItem from './components/polkaItem';
-import {mnemonicGenerate} from '@polkadot/util-crypto';
+import React from "react";
+import { FlatList, SafeAreaView, StyleSheet } from "react-native";
+import PolkaItem from "./components/polkaItem";
+import { mnemonicGenerate } from "@polkadot/util-crypto";
 
 const DATA = [
   {
-    id: '1',
-    title: 'Generate Seed phrase',
-    navigationFunction: 'navigateToSeed',
+    id: "1",
+    title: "Generate Seed phrase",
+    navigationFunction: "navigateToSeed",
   },
   {
-    id: '2',
-    title: 'Chain info',
-    navigationFunction: 'navigateToChainInfo',
+    id: "2",
+    title: "Chain info",
+    navigationFunction: "navigateToChainInfo",
   },
 ];
 
-export default function HomeScreen({navigation}: any) {
+export default function HomeScreen({ navigation }: any) {
   function renderItems(itemData: any) {
     const navigateTo = (item: any) => {
-      console.log(item);
       switch (item) {
-        case 'navigateToSeed':
+        case "navigateToSeed":
           const mnemonic = mnemonicGenerate();
-          navigation.navigate('Generate Seeds', {mnemonic});
+          navigation.navigate("Generated seed address", { mnemonic });
           break;
-        case 'navigateToChainInfo':
-          navigation.navigate('Chain Info');
+        case "navigateToChainInfo":
+          navigation.navigate("Chain Info");
           break;
       }
     };
@@ -44,7 +43,7 @@ export default function HomeScreen({navigation}: any) {
       <FlatList
         data={DATA}
         renderItem={renderItems}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
       />
     </SafeAreaView>
   );
@@ -61,14 +60,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: "#f9c2ff",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
   title: {
     fontSize: 22,
-    textAlign: 'center',
+    textAlign: "center",
   },
   button: {
     flex: 1,
