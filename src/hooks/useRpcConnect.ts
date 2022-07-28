@@ -2,7 +2,7 @@ import {ApiPromise, WsProvider} from '@polkadot/api';
 import {useEffect, useState} from 'react';
 
 export default function useRpcConnect() {
-  const [isApiLoaded, setApiLoaded] = useState<ApiPromise>();
+  const [apiLoaded, setApiLoaded] = useState<ApiPromise>();
 
   useEffect(() => {
     async function fetchData() {
@@ -24,5 +24,5 @@ export default function useRpcConnect() {
     fetchData();
   }, []);
 
-  return isApiLoaded;
+  return apiLoaded;
 }
