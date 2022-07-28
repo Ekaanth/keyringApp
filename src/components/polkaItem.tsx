@@ -1,17 +1,21 @@
 import React from 'react';
-import { FlatList, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-
-export default function PolkaItem({title, onPress}:{title: string, onPress: () => void}) {
-  return(
-<Pressable style={styles.button} onPress={onPress}>
+export default function PolkaItem({
+  title,
+  onPress,
+}: {
+  title: string;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable style={styles.button} onPress={onPress}>
       <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
+        <Text style={styles.title}>{title}</Text>
+      </View>
     </Pressable>
-  )
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -25,9 +29,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    textAlign: 'center'
+    textAlign: 'center',
   },
-  button:{
+  button: {
     flex: 1,
-  }
+  },
 });

@@ -1,28 +1,41 @@
 import React from 'react';
-import { FlatList,SafeAreaView, StyleSheet} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
 import PolkaItem from './components/polkaItem';
 
 const DATA = [
   {
     id: '1',
     title: 'Generate Seed phrase',
-    screen: 'Generate Seeds'
+    screen: 'Generate Seeds',
   },
   {
     id: '2',
     title: 'Chain info',
-    screen: 'Chain Info'
+    screen: 'Chain Info',
+  },
+  {
+    id: '3',
+    title: 'Tips',
+    screen: 'Tips',
+  },
+  {
+    id: '4',
+    title: 'Council',
+    screen: 'Council',
+  },
+  {
+    id: '5',
+    title: 'Registrars',
+    screen: 'Registrars',
   },
 ];
 
 export default function HomeScreen({navigation}: any) {
-
-
-function renderItems(itemData: any) {
-  const onNavigation =() => {
-    navigation.navigate(itemData.item.screen)
-  }
-  return <PolkaItem title={itemData.item.title} onPress={onNavigation} />;
+  function renderItems(itemData: any) {
+    const onNavigation = () => {
+      navigation.navigate(itemData.item.screen);
+    };
+    return <PolkaItem title={itemData.item.title} onPress={onNavigation} />;
   }
 
   return (
@@ -48,9 +61,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    textAlign: 'center'
+    textAlign: 'center',
   },
-  button:{
+  button: {
     flex: 1,
-  }
+  },
 });

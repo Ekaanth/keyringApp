@@ -13,6 +13,8 @@
   "dependencies": {
     "@polkadot/api": "^8.12.2",
     "@polkadot/keyring": "^10.0.2",
+    "@polkadot/react-api": "^0.39.1",
+    "@polkadot/react-hooks": "^0.39.1",
     "@polkadot/types": "^8.12.2",
     "@polkadot/ui-keyring": "^2.8.2",
     "@polkadot/ui-settings": "^2.8.2",
