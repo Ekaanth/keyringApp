@@ -4,8 +4,8 @@ import useRpcConnect from './hooks/useRpcConnect';
 
 export default function ChainInfoScreen() {
   const api = useRpcConnect();
-  const [network, setNetwork] = useState('-');
-  const [version, setVersion] = useState('-');
+  const [network, setNetwork] = useState<string>();
+  const [version, setVersion] = useState<string>();
   useEffect(() => {
     if (api) {
       setNetwork(api?.runtimeChain.toString());
@@ -13,7 +13,7 @@ export default function ChainInfoScreen() {
     }
   }, [api]);
 
-  if (!network || !version) {
+  if (!version) {
     return (
       <View>
         <Text>Loading...</Text>
