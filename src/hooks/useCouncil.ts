@@ -35,8 +35,6 @@ export function useCouncil() {
           }),
         ).then(proposals => {
           setLoading(false);
-
-          console.log('motion :: ', proposals);
           setProposals(proposals);
         });
       }
