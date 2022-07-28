@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 import useRpcConnect from './hooks/useRpcConnect';
+import {formatBalance} from './service/chainServices';
 
 type registrars = {
   account: string;
@@ -17,16 +18,17 @@ export default function RegistrarsScreen() {
         setRegistrars(
           reg
             .map(r => r.unwrap())
-            .map((r: {account: {toString: () => any}}) => {
+            .map(r => {
               return {
                 account: r.account.toString(),
+                fee: r.fee.toString(),
+                formattedFee: formatBalance(api, r.fee.toString(), false),
               };
             }),
         );
       });
     }
   }, [api]);
-
   if (!registrars) {
     return (
       <View>
@@ -40,14 +42,23 @@ export default function RegistrarsScreen() {
       <FlatList
         data={registrars}
         keyExtractor={item => item.account}
-        renderItem={({item}) => (
-          <View>
-            <Text>{item.account}</Text>
+        renderItem={({item, index}) => (
+          <View style={styles.registrarsContainer}>
+            <Text>Registrars {index}</Text>
+            <Text style={styles.address} numberOfLines={1}>
+              Account : {item.account}
+            </Text>
+            <Text>Fee : {item.formattedFee}</Text>
           </View>
         )}
         ListEmptyComponent={() => (
           <View>
             <Text style={styles.item}>There are no registrars</Text>
+          </View>
+        )}
+        ListHeaderComponent={() => (
+          <View>
+            <Text style={styles.header}>Current Registrars</Text>
           </View>
         )}
       />
@@ -63,6 +74,16 @@ const styles = StyleSheet.create({
   item: {
     padding: 10,
     fontSize: 18,
-    color: 'black',
+  },
+  header: {
+    textAlign: 'center',
+    fontSize: 22,
+  },
+  registrarsContainer: {
+    padding: 10,
+  },
+  address: {
+    flex: 0,
+    flexDirection: 'row',
   },
 });
