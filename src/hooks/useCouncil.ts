@@ -19,6 +19,7 @@ export function useCouncil() {
 
   useEffect(() => {
     async function fetchCouncil() {
+      setLoading(true);
       const [motions, electionsInfo, bestNumber] = await Promise.all([
         api?.derive.council.proposals(),
         api?.derive.elections.info(),
