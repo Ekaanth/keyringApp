@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useRpcConnect from "./useRpcConnect";
 
 export default function useTips() {
-  const api = useRpcConnect();
+  const { apiLoaded: api } = useRpcConnect();
   const [tips, setTips] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 

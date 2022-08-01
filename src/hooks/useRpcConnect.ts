@@ -6,10 +6,7 @@ export default function useRpcConnect() {
   const [connection, setConnection] = useState(false);
   useEffect(() => {
     async function fetchData() {
-      const wsProvider = new WsProvider(
-        "wss://polkadot.public.curie.radiumblock.io",
-        false
-      );
+      const wsProvider = new WsProvider("wss://rpc.polkadot.io", false);
       const api = new ApiPromise({ provider: wsProvider });
       await api.connect();
       api.on("ready", () => {

@@ -4,8 +4,8 @@ import { Keyring } from "@polkadot/keyring";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { mnemonicGenerate } from "@polkadot/util-crypto";
 
-export default function GeneratedSeedAddress({ route }: any) {
-  const { mnemonic } = route.params;
+export default function GeneratedSeedAddress() {
+  const mnemonic = mnemonicGenerate();
   const [seed, setSeed] = useState(mnemonic);
   const [address, setAddress] = useState("");
 
@@ -17,6 +17,7 @@ export default function GeneratedSeedAddress({ route }: any) {
 
   const getNewSeed = React.useCallback(() => {
     setSeed(mnemonicGenerate());
+    setAddress("");
   }, []);
 
   return (
