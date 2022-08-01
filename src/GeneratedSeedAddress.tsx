@@ -2,42 +2,51 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { Keyring } from "@polkadot/keyring";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { mnemonicGenerate } from "@polkadot/util-crypto";
 
 export default function GeneratedSeedAddress({ route }: any) {
   const { mnemonic } = route.params;
+  const [seed, setSeed] = useState(mnemonic)
   const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
   const [address, setAddress] = useState("");
-  const getMnemonicAddress = () => {
+
+  const getMnemonicAddress = React.useCallback(() => {
     const pair = keyring.addFromUri(
-      mnemonic,
+      seed,
       { name: "first pair" },
       "ed25519"
     );
     setAddress(pair.address);
-  };
+  }, [seed]);
+
+  const getNewSeed = React.useCallback(() => {
+    setSeed(mnemonicGenerate())
+  }, [])
 
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
         <View style={styles.containerBody} />
         <View style={styles.seedContainer}>
-          {mnemonic ? (
+          {seed ? (
             <>
-              <Text style={styles.seed}> {mnemonic} </Text>
+              <Text>Seed</Text>
+              <Text style={styles.seed}>{seed}</Text>
               <View style={styles.button}>
-                <Button title="Mnemonic Address" onPress={getMnemonicAddress} />
+                <Button title="Get new seed" onPress={getNewSeed} />
               </View>
             </>
           ) : null}
         </View>
-        {address ? (
-          <>
-            <View style={styles.containerBody}>
-              <Text>Address</Text>
-              <Text style={styles.address}>{address}</Text>
+        <>
+          <View style={styles.containerBody}>
+            <Text>Address</Text>
+            <Text style={styles.address}>{address}</Text>
+            <View style={styles.button}>
+              <Button title="Generate address from seed" onPress={getMnemonicAddress} />
             </View>
-          </>
-        ) : null}
+          </View>
+        </>
       </View>
     </SafeAreaProvider>
   );
@@ -48,11 +57,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerBody: {
-    paddingTop: 20,
+    padding: 20,
     alignItems: "center",
     justifyContent: "center",
   },
   seedContainer: {
+    margin: 10,
     shadowOpacity: 0.25,
     elevation: 5,
     paddingVertical: 30,
@@ -60,6 +70,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   seed: {
+    marginTop: 10,
     borderStyle: "dashed",
     borderWidth: 1,
     flexDirection: "row",
