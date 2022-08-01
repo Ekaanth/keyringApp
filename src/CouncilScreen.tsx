@@ -1,9 +1,9 @@
-import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {useCouncil} from './hooks/useCouncil';
+import React from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useCouncil } from "./hooks/useCouncil";
 
 export default function CouncilScreen() {
-  const {proposals, loading} = useCouncil();
+  const { proposals, loading } = useCouncil();
 
   if (loading) {
     return (
@@ -17,8 +17,8 @@ export default function CouncilScreen() {
     <View style={styles.container}>
       <FlatList
         data={proposals}
-        keyExtractor={item => item.proposal.index}
-        renderItem={({item}) => (
+        keyExtractor={(item) => item.proposal.index}
+        renderItem={({ item }) => (
           <View style={styles.councilContainer}>
             <View style={styles.row}>
               <Text style={styles.bold}>Index: </Text>
@@ -77,27 +77,27 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   header: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 22,
   },
   councilContainer: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: 1,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     margin: 10,
   },
   row: {
     flex: 0,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   reason: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });

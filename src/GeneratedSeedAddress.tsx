@@ -6,22 +6,18 @@ import { mnemonicGenerate } from "@polkadot/util-crypto";
 
 export default function GeneratedSeedAddress({ route }: any) {
   const { mnemonic } = route.params;
-  const [seed, setSeed] = useState(mnemonic)
-  const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
+  const [seed, setSeed] = useState(mnemonic);
   const [address, setAddress] = useState("");
 
   const getMnemonicAddress = React.useCallback(() => {
-    const pair = keyring.addFromUri(
-      seed,
-      { name: "first pair" },
-      "ed25519"
-    );
+    const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
+    const pair = keyring.addFromUri(seed, { name: "first pair" }, "ed25519");
     setAddress(pair.address);
   }, [seed]);
 
   const getNewSeed = React.useCallback(() => {
-    setSeed(mnemonicGenerate())
-  }, [])
+    setSeed(mnemonicGenerate());
+  }, []);
 
   return (
     <SafeAreaProvider>
@@ -43,7 +39,10 @@ export default function GeneratedSeedAddress({ route }: any) {
             <Text>Address</Text>
             <Text style={styles.address}>{address}</Text>
             <View style={styles.button}>
-              <Button title="Generate address from seed" onPress={getMnemonicAddress} />
+              <Button
+                title="Generate address from seed"
+                onPress={getMnemonicAddress}
+              />
             </View>
           </View>
         </>

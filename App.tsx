@@ -1,23 +1,33 @@
-import * as React from 'react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './src/HomeScreen';
-import GenerateSeedScreen from './src/GeneratedSeedAddress';
-import useRpcConnect from './src/hooks/useRpcConnect';
-import ChainInfoScreen from './src/ChainInfoScreen';
-import RegistrarsScreen from './src/RegistrarsScreen';
-import TipsScreen from './src/TipsScreen';
-import CouncilScreen from './src/CouncilScreen';
+import * as React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from "./src/HomeScreen";
+import GenerateSeedScreen from "./src/GeneratedSeedAddress";
+import useRpcConnect from "./src/hooks/useRpcConnect";
+import ChainInfoScreen from "./src/ChainInfoScreen";
+import RegistrarsScreen from "./src/RegistrarsScreen";
+import TipsScreen from "./src/TipsScreen";
+import CouncilScreen from "./src/CouncilScreen";
+import { Text, View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const isWasmInit = useRpcConnect();
+  const { apiLoaded, connection } = useRpcConnect();
 
-  if (!isWasmInit) {
-    return null;
+  if (!connection) {
+    return (
+      <SafeAreaProvider>
+        <View>
+          <Text>Unable to connect to the websocket</Text>
+        </View>
+      </SafeAreaProvider>
+    );
   } else {
+    if (!apiLoaded) {
+      return null;
+    }
     return (
       <SafeAreaProvider>
         <NavigationContainer>

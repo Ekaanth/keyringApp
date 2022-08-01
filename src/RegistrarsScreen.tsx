@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
-import useRpcConnect from './hooks/useRpcConnect';
-import {formatBalance} from './service/chainServices';
+import React, { useEffect, useState } from "react";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+import useRpcConnect from "./hooks/useRpcConnect";
+import { formatBalance } from "./service/chainServices";
 
 type registrars = {
   account: string;
@@ -10,21 +10,21 @@ type registrars = {
 };
 
 export default function RegistrarsScreen() {
-  const api = useRpcConnect();
+  const { apiLoaded: api } = useRpcConnect();
   const [registrars, setRegistrars] = useState<registrars[]>();
   useEffect(() => {
     if (api) {
-      api?.query.identity?.registrars().then(reg => {
+      api?.query.identity?.registrars().then((reg) => {
         setRegistrars(
           reg
-            .map(r => r.unwrap())
-            .map(r => {
+            .map((r) => r.unwrap())
+            .map((r) => {
               return {
                 account: r.account.toString(),
                 fee: r.fee.toString(),
                 formattedFee: formatBalance(api, r.fee.toString(), false),
               };
-            }),
+            })
         );
       });
     }
@@ -41,8 +41,8 @@ export default function RegistrarsScreen() {
     <View style={styles.container}>
       <FlatList
         data={registrars}
-        keyExtractor={item => item.account}
-        renderItem={({item, index}) => (
+        keyExtractor={(item) => item.account}
+        renderItem={({ item, index }) => (
           <View style={styles.registrarsContainer}>
             <Text>Registrars {index}</Text>
             <Text style={styles.address} numberOfLines={1}>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   header: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 22,
   },
   registrarsContainer: {
@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
   },
   address: {
     flex: 0,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 });
