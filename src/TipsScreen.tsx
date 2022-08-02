@@ -1,12 +1,12 @@
-import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import useRpcConnect from "./hooks/useRpcConnect";
-import useTips from "./hooks/useTips";
-import { formatBalance } from "./service/chainServices";
+import React from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import useRpcConnect from './hooks/useRpcConnect';
+import useTips from './hooks/useTips';
+import {formatBalance} from './service/chainServices';
 
 export default function TipsScreen() {
-  const { apiLoaded: api } = useRpcConnect();
-  const { tips, loading } = useTips();
+  const {apiLoaded: api} = useRpcConnect();
+  const {tips, loading} = useTips();
 
   if (loading) {
     return (
@@ -21,7 +21,7 @@ export default function TipsScreen() {
       <FlatList
         data={tips}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        renderItem={({item}) => (
           <View style={styles.tipsContainer}>
             <View style={styles.row}>
               <Text style={styles.bold}>Proposed By: </Text>
@@ -66,27 +66,27 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   header: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 22,
   },
   tipsContainer: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderWidth: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     margin: 10,
   },
   row: {
     flex: 0,
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   reason: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   bold: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });

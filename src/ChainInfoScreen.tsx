@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
-import useRpcConnect from "./hooks/useRpcConnect";
+import React, {useEffect, useState} from 'react';
+import {View, Text} from 'react-native';
+import useRpcConnect from './hooks/useRpcConnect';
 
 export default function ChainInfoScreen() {
-    const { apiLoaded: api } = useRpcConnect();
+  const {apiLoaded: api} = useRpcConnect();
 
   const [network, setNetwork] = useState<string>();
   const [version, setVersion] = useState<string>();

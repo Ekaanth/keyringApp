@@ -1,20 +1,18 @@
-import { ApiPromise } from "@polkadot/api";
-import { Hash } from "@polkadot/types/interfaces";
-import { hexToString } from "@polkadot/util";
-import { useEffect, useState } from "react";
-import useRpcConnect from "./useRpcConnect";
+import {ApiPromise} from '@polkadot/api';
+import {Hash} from '@polkadot/types/interfaces';
+import {hexToString} from '@polkadot/util';
+import {useEffect, useState} from 'react';
+import useRpcConnect from './useRpcConnect';
 
 export default function useTips() {
-  const { apiLoaded: api } = useRpcConnect();
+  const {apiLoaded: api} = useRpcConnect();
   const [tips, setTips] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchTips() {
       setLoading(true);
-      const hashes = await api?.query.tips.tips
-        .keys()
-        .then((keys) => keys.map((key) => key.args[0].toHex()));
+      const hashes = await api?.query.tips.tips.keys().then((keys) => keys.map((key) => key.args[0].toHex()));
 
       if (hashes?.length) {
         const optionTips = await api?.query.tips.tips.multi(hashes);
@@ -28,13 +26,13 @@ export default function useTips() {
                 : -1
               : b[1].closes.isSome
               ? b[1].closes.unwrap().cmp(a[1].closes.unwrap())
-              : 1
+              : 1,
           );
         const tips =
           (await openTips?.map(async (openTip) => ({
             id: openTip[0],
-            who: { address: openTip[1].who.toString() },
-            finder: { address: openTip[1].finder.toString() },
+            who: {address: openTip[1].who.toString()},
+            finder: {address: openTip[1].finder.toString()},
             reason: await getTipReason(api, openTip[1].reason),
             closes: openTip[1].closes.unwrapOr(null)?.toString(),
             deposit: openTip[1].deposit.toString(),
@@ -55,12 +53,11 @@ export default function useTips() {
     });
   }, [api]);
 
-  return { tips, loading };
+  return {tips, loading};
 }
 
 const transformReason = {
-  transform: (optBytes) =>
-    optBytes.isSome ? hexToString(optBytes.unwrap().toHex()) : null,
+  transform: (optBytes) => (optBytes.isSome ? hexToString(optBytes.unwrap().toHex()) : null),
 };
 
 async function getTipReason(api: ApiPromise, reasonHash: Hash) {

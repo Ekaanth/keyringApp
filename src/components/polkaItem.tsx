@@ -1,13 +1,7 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default function PolkaItem({
-  title,
-  onPress,
-}: {
-  title: string;
-  onPress: () => void;
-}) {
+export default function PolkaItem({title, onPress}: {title: string; onPress: () => void}) {
   return (
     <Pressable style={styles.button} onPress={onPress}>
       <View style={styles.item}>
