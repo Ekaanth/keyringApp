@@ -10,15 +10,15 @@ type registrars = {
 };
 
 export default function RegistrarsScreen() {
-  const api = useRpcConnect();
+  const {apiLoaded: api} = useRpcConnect();
   const [registrars, setRegistrars] = useState<registrars[]>();
   useEffect(() => {
     if (api) {
-      api?.query.identity?.registrars().then(reg => {
+      api?.query.identity?.registrars().then((reg) => {
         setRegistrars(
           reg
-            .map(r => r.unwrap())
-            .map(r => {
+            .map((r) => r.unwrap())
+            .map((r) => {
               return {
                 account: r.account.toString(),
                 fee: r.fee.toString(),
@@ -41,7 +41,7 @@ export default function RegistrarsScreen() {
     <View style={styles.container}>
       <FlatList
         data={registrars}
-        keyExtractor={item => item.account}
+        keyExtractor={(item) => item.account}
         renderItem={({item, index}) => (
           <View style={styles.registrarsContainer}>
             <Text>Registrars {index}</Text>

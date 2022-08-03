@@ -5,7 +5,7 @@ import useTips from './hooks/useTips';
 import {formatBalance} from './service/chainServices';
 
 export default function TipsScreen() {
-  const api = useRpcConnect();
+  const {apiLoaded: api} = useRpcConnect();
   const {tips, loading} = useTips();
 
   if (loading) {
@@ -20,7 +20,7 @@ export default function TipsScreen() {
     <View style={styles.container}>
       <FlatList
         data={tips}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         renderItem={({item}) => (
           <View style={styles.tipsContainer}>
             <View style={styles.row}>

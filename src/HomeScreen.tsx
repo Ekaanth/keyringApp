@@ -40,11 +40,7 @@ export default function HomeScreen({navigation}: any) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItems}
-        keyExtractor={item => item.id}
-      />
+      <FlatList data={DATA} renderItem={renderItems} keyExtractor={(item) => item.id} />
     </SafeAreaView>
   );
 }

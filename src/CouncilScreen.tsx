@@ -17,7 +17,7 @@ export default function CouncilScreen() {
     <View style={styles.container}>
       <FlatList
         data={proposals}
-        keyExtractor={item => item.proposal.index}
+        keyExtractor={(item) => item.proposal.index}
         renderItem={({item}) => (
           <View style={styles.councilContainer}>
             <View style={styles.row}>
